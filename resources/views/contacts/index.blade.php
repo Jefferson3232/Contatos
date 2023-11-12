@@ -38,10 +38,29 @@
                                     {{$contact->cell_phone}}
                                 </td>
                                 <td class=" items-center px-6 py-4">
-                                    <a href="#"
-                                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                                    <a href="#"
-                                       class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remover</a>
+                                    <x-dropdown>
+                                        <x-slot name="trigger">
+                                            <button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400"
+                                                     viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                                </svg>
+                                            </button>
+                                        </x-slot>
+                                        <x-slot name="content">
+                                            <x-dropdown-link :href="route('contacts.edit', $contact->id)">
+                                                {{ __('Editar') }}
+                                            </x-dropdown-link>
+                                            <form method="POST" action="{{ route('contacts.destroy', $contact) }}">
+                                                @csrf
+                                                @method('delete')
+                                                <x-dropdown-link :href="route('contacts.destroy', $contact->id)"
+                                                                 onclick="event.preventDefault(); this.closest('form').submit();">
+                                                    {{ __('Remover') }}
+                                                </x-dropdown-link>
+                                            </form>
+                                        </x-slot>
+                                    </x-dropdown>
                                 </td>
 
                             </tr>

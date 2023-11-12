@@ -22,7 +22,7 @@ class ContactController extends Controller
 
     public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('contacts.index', ['contacts' => Contact::all()]);
+        return view('contacts.index', ['contacts' => Contact::latest()->get()]);
     }
 
     public function create(): View|\Illuminate\Foundation\Application|Factory|Application
@@ -40,5 +40,16 @@ class ContactController extends Controller
             ->create($request->toDTO()->toArray());
 
         return redirect()->route('contacts.index');
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        $contact = Contact::find($id);
+        
+        $this->authorize('delete', $contact);
+
+        $contact->delete();
+
+        return redirect(route('contacts.index'));
     }
 }
