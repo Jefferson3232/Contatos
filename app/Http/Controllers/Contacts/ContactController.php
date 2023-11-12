@@ -44,8 +44,10 @@ class ContactController extends Controller
 
     public function destroy(int $id): RedirectResponse
     {
-        $contact = Contact::find($id);
-        
+        $contact = $this->contactModel
+            ->newQuery()
+            ->find($id);
+
         $this->authorize('delete', $contact);
 
         $contact->delete();
