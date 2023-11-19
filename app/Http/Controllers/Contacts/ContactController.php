@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Contacts;
 
 use App\Http\Controllers\Contacts\Requests\StoreContactRequest;
+use App\Http\Controllers\Contacts\Requests\UpdateContactRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Exception;
@@ -41,6 +42,37 @@ class ContactController extends Controller
 
         return redirect()->route('contacts.index');
     }
+
+    public function edit(int $id): View
+    {
+        $contact = $this->contactModel
+            ->newQuery()
+            ->find($id);
+
+        return view('contacts.edit', [
+            'contact' => $contact
+        ]);
+    }
+
+    public function update(UpdateContactRequest $request)
+    {
+        $dto = $request->toDTO();
+
+        $contact = $this->contactModel
+            ->newQuery()
+            ->find($dto->contactId);
+
+        $this->authorize('update', $contact);
+
+        $contact->update([
+            'name' => $dto->name,
+            'email' => $dto->email,
+            'cell_phone' => $dto->cellPhone,
+        ]);
+
+        return redirect(route('contacts.index'));
+    }
+
 
     public function destroy(int $id): RedirectResponse
     {
