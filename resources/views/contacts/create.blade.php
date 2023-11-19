@@ -13,6 +13,7 @@
                     <span class="text-gray-700">Nome</span>
                     <input type="text" name="name" class="block w-full mt-1 rounded-md" placeholder=""
                            value="{{old('name')}}"/>
+                    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                 </label>
             </div>
             <div class="mb-6">
@@ -20,26 +21,7 @@
                     <span class="text-gray-700">Email</span>
                     <input type="email" name="email" class="block w-full mt-1 rounded-md" placeholder="mario@gmail.com"
                            value="{{old('email')}}"/>
-                </label>
-            </div>
-            <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-gray-900" for="genders">
-                    <span class="text-gray-700">Gênero</span>
-                    <select id="genders"
-                            name="gender"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </label>
-            </div>
-            <div class="mb-6">
-                <label class="block">
-                    <span class="text-gray-700">Data Nascimento</span>
-                    <input type="text" id="birth_date" name="birth_date" class="block w-full mt-1 rounded-md"
-                           placeholder="05/10/1990"
-                           value="{{old('birth_date')}}"/>
+                    <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                 </label>
             </div>
             <div class="mb-6">
@@ -48,13 +30,7 @@
                     <input type="text" id="cell_phone" name="cell_phone" class="block w-full mt-1 rounded-md"
                            placeholder="(11) 11314-4672"
                            value="{{old('cell_phone')}}"/>
-                </label>
-            </div>
-            <div class="mb-6">
-                <label class="block">
-                    <span class="text-gray-700">Nacionalidade</span>
-                    <input type="text" name="nationality" class="block w-full mt-1 rounded-md" placeholder=""
-                           value="{{old('nationality')}}"/>
+                    <x-input-error :messages="$errors->get('cell_phone')" class="mt-2"/>
                 </label>
             </div>
 
@@ -69,12 +45,9 @@
     </div>
 </x-app-layout>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="module">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-<script>
     $(document).ready(function () {
-        $('#birth_date').mask('00/00/0000');
         $('#cell_phone').mask('(00) 00000-0000');
     });
 </script>

@@ -30,4 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('/contatos', ContactController::class)->names('contacts');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

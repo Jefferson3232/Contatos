@@ -34,7 +34,8 @@
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{$contact->email}}
                                 </td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td id="cell_phone"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{$contact->cell_phone}}
                                 </td>
                                 <td class=" items-center px-6 py-4">
@@ -71,5 +72,11 @@
             </div>
         </section>
     </div>
-    +
+
+
+    <script type="module">
+        $(document).ready(function () {
+            $('#cell_phone').mask('(00) 00000-0000');
+        });
+    </script>
 </x-app-layout>

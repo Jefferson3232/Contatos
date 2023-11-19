@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Contacts\Requests;
 
 use App\Http\Controllers\Contacts\DTO\CreateInputDTO;
-use DateTimeImmutable;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -21,10 +20,16 @@ class StoreContactRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required',
-            'gender' => 'required',
-            'birth_date' => ['required', 'date'],
             'cell_phone' => 'required',
-            'nationality' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'O campo Nome é obrigatório',
+            'email.required' => 'O campo Email é obrigatório',
+            'cell_phone.required' => 'O campo Telefone é obrigatório',
         ];
     }
 
@@ -37,10 +42,7 @@ class StoreContactRequest extends FormRequest
             'user_id' => auth()->id(),
             'name' => $this->name,
             'email' => $this->email,
-            'gender' => $this->gender,
-            'birth_date' => (new DateTimeImmutable($this->birth_date))->format('Y-m-d'),
-            'cell_phone' => preg_replace("/[^0-9]/", "", $this->cell_phone),
-            'nationality' => $this->nationality,
+            'cell_phone' => preg_replace("/\D/", '', $this->cell_phone),
         ]);
     }
 }
