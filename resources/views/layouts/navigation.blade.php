@@ -18,9 +18,6 @@
                     <x-nav-link :href="route('contacts.index')" :active="request()->routeIs('contacts.index')">
                         {{ __('Visualizar Contatos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('contacts.create')" :active="request()->routeIs('contacts.create')">
-                        {{ __('Adicionar Contato') }}
-                    </x-nav-link>
                 </div>
 
             </div>
@@ -86,9 +83,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('contacts.index')" :active="request()->routeIs('contacts.index')">
                 {{ __('Visualizar Contatos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('contacts.create')" :active="request()->routeIs('contacts.create')">
-                {{ __('Adicionar Contato') }}
             </x-responsive-nav-link>
         </div>
 

@@ -23,7 +23,7 @@ class ContactController extends Controller
 
     public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('contacts.index', ['contacts' => Contact::latest()->get()]);
+        return view('contacts.index', ['contacts' => Contact::where('user_id', auth()->id())->latest()->get()]);
     }
 
     public function create(): View|\Illuminate\Foundation\Application|Factory|Application
@@ -40,7 +40,7 @@ class ContactController extends Controller
             ->newQuery()
             ->create($request->toDTO()->toArray());
 
-        return redirect()->route('contacts.index');
+        return redirect()->route('contacts.index')->with('success', 'Contato criado com sucesso!');
     }
 
     public function edit(int $id): View
@@ -70,7 +70,7 @@ class ContactController extends Controller
             'cell_phone' => $dto->cellPhone,
         ]);
 
-        return redirect(route('contacts.index'));
+        return redirect(route('contacts.index'))->with('success', 'Contato atualizado com sucesso!');
     }
 
 
@@ -84,6 +84,6 @@ class ContactController extends Controller
 
         $contact->delete();
 
-        return redirect(route('contacts.index'));
+        return redirect(route('contacts.index'))->with('success', 'Contato removido com sucesso!');
     }
 }
